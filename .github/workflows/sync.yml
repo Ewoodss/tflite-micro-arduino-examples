@@ -26,9 +26,6 @@ jobs:
     steps:
       - uses: actions/setup-python@v2
       - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.TFLM_BOT_REPO_TOKEN }}
-
       - name: Sync the code
         run: |
           pip3 install six Pillow Wave
@@ -42,18 +39,3 @@ jobs:
           else
             git commit -m "Sync from tflite-micro."
           fi
-
-      - name: Create Pull Request
-        id: create-pr
-        uses: peter-evans/create-pull-request@052fc72b4198ba9fbc81b818c6e1859f747d49a8
-        with:
-          branch: sync-from-tflite-micro
-          delete-branch: true
-          token: ${{ secrets.TFLM_BOT_REPO_TOKEN }}
-          title: (Arduino) Automated sync from github.com/tensorflow/tflite-micro
-          commit-message: Automated sync from github.com/tensorflow/tflite-micro
-          committer: TFLM-bot <tflm-github-bot@google.com>
-          author: TFLM-bot <tflm-github-bot@google.com>
-          body: "(Arduino) Automated sync from github.com/tensorflow/tflite-micro"
-          labels: bot:sync-tf, ci:run
-          reviewers: advaitjain
